@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Last Name of Flesh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #2b1a12;
+      --text: #d4c0a1;
+      --accent: #a67c52;
+      --muted: #8c7a5e;
+      --glow: rgba(166,124,82,0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; width: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+      padding-top: 80px;
+      background-attachment: fixed;
+      background-size: cover;
+      animation: backgroundFlicker 30s infinite;
+    }
+    @keyframes backgroundFlicker {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(0.9); }
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 15px 0;
+      z-index: 1000;
+      font-family: 'EB Garamond', serif;
+      text-align: center;
+      box-shadow: 0 2px 5px var(--glow);
+    }
+    nav ul { list-style: none; }
+    nav ul li {
+      display: inline-block;
+      margin: 0 15px;
+      position: relative;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 1.1em;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: var(--accent);
+      transform: scale(1.05);
+    }
+
+
+    /* Sidebar */
+    #sidebar {
+      position: fixed;
+      top: 80px;
+      right: 0;
+      width: 220px;
+      height: calc(100% - 80px);
+      background: rgba(0,0,0,0.8);
+      padding: 20px;
+      border-left: 1px solid var(--accent);
+      transform: translateX(100%);
+      transition: transform 0.5s ease;
+      z-index: 900;
+    }
+    #sidebar.visible { transform: translateX(0); }
+    #sidebar h3 {
+      color: var(--accent);
+      margin-bottom: 15px;
+      font-size: 1.3em;
+    }
+    #sidebar ul { list-style: none; }
+    #sidebar ul li {
+      margin: 10px 0;
+      cursor: pointer;
+      color: var(--text);
+      transition: color 0.3s ease;
+    }
+    #sidebar ul li:hover { color: var(--accent); }
+
+    /* Pages */
+    .page {
+      max-width: 900px;
+      margin: 20px auto 40px auto;
+      padding: 20px;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid var(--accent);
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+      border-radius: 5px;
+      transition: opacity 0.6s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .hidden { display: none; }
+
+    /* H{n} */
+    h1, h2 {
+      font-family: 'EB Garamond', serif;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 20px;
+      animation: flicker 3s infinite;
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+      70% { opacity: 0.9; }
+    }
+    h1 { font-size: 3em; }
+    h2 { font-size: 2em; }
+
+    /* Subtitles */
+    #subtitle, #journal-subtitle {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 30px;
+      color: var(--muted);
+    }
+
+    /* Sec */
+    .section {
+      margin-bottom: 40px;
+      padding: 15px;
+      border-left: 3px solid var(--accent);
+    }
+    .section h3 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+    .section p { text-align: justify; }
+
+    /* Covenant Story (Styled as a Poem) */
+    .poem-area {
+      background: rgba(0,0,0,0.5);
+      padding: 25px;
+      margin: 30px 0;
+      font-family: 'EB Garamond', serif;
+      font-size: 1.2em;
+      line-height: 1.8;
+      border: 1px solid var(--accent);
+    }
+
+    /* Blog */
+    .blog-post {
+      border-bottom: 1px solid var(--accent);
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      cursor: pointer;
+      transition: background 0.4s ease;
+    }
+    .blog-post:hover { background: rgba(0,0,0,0.4); }
+    .blog-title { font-size: 1.8em; color: var(--accent); margin-bottom: 5px; }
+    .blog-date { font-size: 0.9em; color: var(--muted); margin-bottom: 10px; }
+    .blog-content { text-align: justify; }
+    .annotation {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1em;
+      color: var(--muted);
+      margin-top: 10px;
+      opacity: 0.85;
+    }
+
+    /* Epistle */
+    .author-letter {
+      padding: 20px;
+      border: 1px solid var(--accent);
+      background: rgba(0,0,0,0.45);
+      margin: 20px auto;
+      max-width: 800px;
+      text-align: justify;
+    }
+    .author-letter h2 { text-align: center; margin-bottom: 20px; }
+
+    /* Log */
+    .notes-area, .results-area, .discovery-area {
+      background: rgba(0,0,0,0.45);
+      border: 1px solid var(--accent);
+      padding: 15px;
+      margin: 20px 0;
+    }
+    .notes-input, #search-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid var(--accent);
+      background: #2c2c2c;
+      color: var(--text);
+      font-family: 'EB Garamond', serif;
+    }
+    .notes-button {
+      padding: 8px 16px;
+      border: none;
+      background: var(--accent);
+      color: var(--bg);
+      cursor: pointer;
+      font-family: 'EB Garamond', serif;
+      transition: background 0.3s ease;
+    }
+    .notes-button:hover { background: var(--muted); }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      border-top: 1px solid var(--accent);
+      margin-top: 40px;
+      font-size: 0.9em;
+    }
+
+    /* Modal{blog} */
+    #reading-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #reading-modal.visible { display: flex; }
+    .reading-content {
+      background: var(--bg);
+      padding: 30px;
+      border: 1px solid var(--accent);
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+    }
+    .reading-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.8em;
+      color: var(--accent);
+      cursor: pointer;
+    }
+#document-button {
+  display: block;
+  width: fit-content;
+  margin: 40px auto;
+  padding: 10px 20px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1em;
+  color: var(--bg);
+  background: var(--accent);
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 10px var(--glow);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#document-button:hover {
+  background: var(--muted);
+  transform: translateY(-2px);
+}
+
+#pdf-viewer {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+  z-index: 2000;
+}
+
+
+#pdf-container {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--accent);
+}
+
+#close-pdf {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 2em;
+  color: var(--accent);
+  cursor: pointer;
+  z-index: 3000;
+  transition: transform 0.2s ease;
+}
+
+#close-pdf:hover {
+  transform: scale(1.2);
+}
+
+  </style>
+</head>
+<body>
+  <!-- Nav -->
+  <nav>
+    <ul>
+      <li><a href="#" onclick="switchPage('manuscript')">Manuscript</a></li>
+      <li><a href="#" onclick="switchPage('covenant')">Covenant</a></li>
+      <li><a href="#" onclick="switchPage('journal')">Journal</a></li>
+      <li><a href="#" onclick="switchPage('epistle')">Epistle</a></li>
+      <li><a href="#" onclick="switchPage('search')">Search</a></li>
+      <li><a href="#" onclick="switchPage('discovery')">The Record</a></li>
+      <li><a href="#" onclick="toggleSidebar()">Categories</a></li>
+    </ul>
+  </nav>
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <h3>Categories</h3>
+    <ul>
+      <li onclick="filterJournal('all')">All Posts</li>
+      <li onclick="filterJournal('reflection')">Reflection</li>
+      <li onclick="filterJournal('analysis')">Analysis</li>
+    </ul>
+  </div>
+
+  <!-- Manuscript -->
+  <div id="page-manuscript" class="page">
+    <h1>The Last Name of Flesh</h1>
+    <p id="subtitle">May Sin Never End.</p>
+    <div class="section">
+      <h3>Prologue: The Legacy</h3>
+      <p>Before the first word was spoken, the silence carried its name. It was not known, yet all who came after held its weight. You have already seen it. You have already said it. You will not know when.</p>
+      <div class="annotation">"The first inscription is but a lure."</div>
+    </div>
+    <div class="section">
+      <h3>Declaration I: The Name That Remains</h3>
+      <p>Every act leaves something behind. A mark, a name. Some are remembered. Most are not. The name is not spoken, but it is carried. It does not fade.</p>
+    </div>
+    <div class="section">
+      <h3>Declaration II: The Oath Written in Dust</h3>
+      <p>Memory is but a fragile thing. Names slip through it like water through cracks. A name is not an oath, but an oath can become a name. </p>
+      <div class="annotation">"Not all that is written is meant to be understood."</div>
+    </div>
+    <div class="section">
+      <h3>Declaration III: The Inheritance</h3>
+      <p>What was taken is still taken. What was given is still given. It only changes hands.</p>
+      <div class="annotation">Inheritance is rarely a choice.</div>
+    </div>
+    <div class="section">
+      <h3>Epilogue: The Chain</h3>
+      <p>There was no first, and there will be no last, for it is not a choice.</p>
+      <div class="annotation">"In the act of solving, the inheritor is born."</div>
+    </div>
+  </div>
+
+  <!-- Covenant -->
+  <div id="page-covenant" class="page hidden">
+    <h1>The Covenant</h1>
+    <p id="subtitle">For the shepherd knows his flock, and they follow his call.</p>
+    <div class="poem-area">
+      <p>
+        There was a shepherd who knew his flock with tender care,
+        calling each lamb by a name whispered on the wind.
+        They followed him through meadows and groves,
+        their gentle bleats a hymn to a promise.
+      </p>
+      <p>
+        In the soft glow, he led them along a path,
+        where the grass shimmered like secrets kept in old memories.
+        A lamb that strayed was returned by the sound of his voice,
+        and a weary lamb was cradled in his embrace.
+      </p>
+      <p>
+        Yet, beneath the calm, a weight pressed upon each tender heart,
+        for the shepherd’s care was no mere kindness, but an oath.
+        In the stillness of night, as the stars blinked in counsel,
+        they slumbered, unaware of the legacy that was theirs to bear.
+      </p>
+      <p>
+        And the shepherd smiled, for his dominion was sure,
+        so long as his voice called, they would follow.
+        In that quiet pasture, innocence kept an unseen price.
+      </p>
+    </div>
+  </div>
+
+  <!-- Journal -->
+  <div id="page-journal" class="page hidden">
+  <h1>The Ledger</h1>
+  <p id="journal-subtitle">Parts of names, for they are not oaths.</p>
+
+  <!-- A Debt Without Creditor -->
+  <div class="blog-post" data-category="reflection" data-fulltext="
+    There is a debt which no hand has written, and no tongue has named.
+    It is not in the memory of man, but beneath it.
+    For what is taken cannot be returned, and what is owed is not forgotten.
+
+    Some speak of freedom, but there is no freedom for those who bear what cannot be repaid, for they are sinners.
+    And when the last witness falls silent, the debt shall remain, looking at another.
+  ">
+    <div class="blog-title">A Debt Without Creditor</div>
+    <div class="blog-date">Published: 2025-02-18</div>
+    <div class="blog-content">
+      Freedom is not for the damned, for they have not returned the debt.
+    </div>
+    <div class="annotation">"What was taken remains eternally owed."</div>
+  </div>
+
+  <!-- The Hands That Tremble -->
+  <div class="blog-post" data-category="reflection" data-fulltext="
+    Not all who carry the burden know its name, but the body remembers what the tongue cannot speak.
+    For in the stillness, the hand trembles.
+    And what the mind denies, the flesh confesses.
+
+    There are those who wake in the night, trembling for no cause they can name.
+    Yet, the cause is older than their birth, and heavier than their bones.
+    For the hand trembles under the memory of what was once written.
+  ">
+    <div class="blog-title">The Hands That Tremble</div>
+    <div class="blog-date">Published: 2024-11-30</div>
+    <div class="blog-content">
+      The hand trembles for those who do not remember, for they have become sinners.
+    </div>
+    <div class="annotation">"The body reveals what words deny."</div>
+  </div>
+
+  <div class="blog-post" data-category="analysis" data-fulltext="
+    There are no accidents, for every chance bears a cost.
+
+    What is called fortune is no gift,
+    For the hand that takes must also bear, and nothing given is ever free.
+    Some call it luck, but those who know, know otherwise.
+
+    There are chances that no man should take, yet once taken, they cannot be undone.
+    For even the smallest choice move beyond its oath.
+
+    Some would call it chance, but chance is no stranger to purpose.
+    Not all who sin mean to do so.
+    And what is carried shall be paid.
+  ">
+  <div class="blog-title">The Chance That Sinned</div>
+  <div class="blog-date">Published: 2025-01-10</div>
+  <div class="blog-content">
+    The chance that sinned repented, yet it was not forgiven.
+  </div>
+  <div class="annotation">"For man is made in God's perfect image, and he who sins shall find redemption in Him."</div>
+</div>
+
+  <!-- The Last Betrayal -->
+  <div class="blog-post" data-category="analysis" data-fulltext="
+    There is a moment which was more than words, and a betrayal older than flesh.
+    For no oath is spoken without cost, and no promise is broken without blood.
+
+    The last betrayal is not one of anger,
+    For the greatest wounds are not those which bleed, but those which cannot be named.
+
+    Let no one think themselves beyond the cost.
+    For a broken vow is never carried by one, but by all who come after.
+    And in the end, the ledger shall be made full.
+  ">
+    <div class="blog-title">The Last Betrayal</div>
+    <div class="blog-date">Published: 2024-12-25</div>
+    <div class="blog-content">
+     What is done in treachery does not rest with the one who speaks it.
+    </div>
+    <div class="annotation">"He who breaks a promise shall not walk unjudged."</div>
+  </div>
+
+</div>
+
+  <!-- Epistle -->
+  <div id="page-epistle" class="page hidden">
+    <div class="author-letter">
+      <h2>A Record for Those Who Follow</h2>
+      <p>
+        To those who come after,<br><br>
+        These words are not for you, yet you have found them.
+        What is written here was never meant to be known, but once seen, it cannot be set aside.
+
+        There are debts carried without consent. In reading this, you take part, whether you would or not.
+
+        What follows is not a warning, for warnings come too soon. This comes too late.
+
+        May you bear the sins of those before you have, for there is no leaving it behind.
+      </p>
+      <p>
+        It passes to you,<br>
+        as it did to me.
+      </p>
+    </div>
+  </div>
+
+  <!-- Search  -->
+  <div id="page-search" class="page hidden">
+    <h1>Look Within</h1>
+    <p id="subtitle">Find What Was Written.</p>
+    <div class="notes-area">
+      <input type="text" id="search-input" placeholder="Enter search term...">
+      <button class="notes-button" onclick="performSearch()">Search</button>
+      <div id="search-results" class="results-area"></div>
+    </div>
+  </div>
+
+  <!-- Logs -->
+  <div id="page-discovery" class="page hidden">
+    <h1>Kept Marks</h1>
+    <p id="subtitle">What is seen is marked.</p>
+    <div class="discovery-area" id="discovery-log"></div>
+    <button class="notes-button" onclick="clearLog()">Clear Log</button>
+  </div>
+
+  <!-- Modal{blog} -->
+  <div id="reading-modal">
+    <div class="reading-content">
+      <span class="reading-close" onclick="closeReadingModal()">×</span>
+      <h2 id="modal-title"></h2>
+      <div id="modal-date"></div>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Access -->
+
+  <a href="#" id="document-button" onclick="openPDF()">Access Document</a>
+<div id="pdf-viewer">
+  <div id="pdf-container">
+    <span id="close-pdf" onclick="closePDF()">×</span>
+    <iframe id="pdf-frame" src="Babel.pdf" width="100%" height="100%"></iframe>
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 The Last Name of Flesh || All rights reserved.
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Pages
+    function switchPage(page) {
+      const pages = ['manuscript','covenant','journal','epistle','search','discovery'];
+      pages.forEach(p => document.getElementById('page-' + p).classList.add('hidden'));
+      document.getElementById('page-' + page).classList.remove('hidden');
+      addLog("Switched to " + page + " page.");
+    }
+
+    // Sidebar Toggle
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('visible');
+    }
+
+
+    // Search
+    function performSearch() {
+      const query = document.getElementById('search-input').value.toLowerCase();
+      let results = "";
+      document.querySelectorAll('.page').forEach(page => {
+        if(page.innerText.toLowerCase().includes(query)) {
+          results += "<p>Found in " + page.id + "</p>";
+        }
+      });
+      if(!results) results = "<p>No results found.</p>";
+      document.getElementById('search-results').innerHTML = results;
+      addLog("Performed search: " + query);
+    }
+
+    // Logs
+    function addLog(entry) {
+      let log = JSON.parse(localStorage.getItem('discoveryLog')) || [];
+      log.push(new Date().toLocaleString() + ": " + entry);
+      localStorage.setItem('discoveryLog', JSON.stringify(log));
+      updateDiscoveryLog();
+    }
+    function updateDiscoveryLog() {
+      const log = JSON.parse(localStorage.getItem('discoveryLog')) || [];
+      document.getElementById('discovery-log').innerHTML = log.map(item => "<p>" + item + "</p>").join("");
+    }
+    function clearLog() {
+      localStorage.removeItem('discoveryLog');
+      updateDiscoveryLog();
+    }
+
+    // Blogs
+    function openReadingModal(title, date, content) {
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-date').textContent = date;
+      document.getElementById('modal-content').innerHTML = content;
+      document.getElementById('reading-modal').classList.add('visible');
+      addLog("Opened reading for: " + title);
+    }
+    function closeReadingModal() {
+      document.getElementById('reading-modal').classList.remove('visible');
+      addLog("Closed reading modal");
+    }
+
+    // Events
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.blog-post').forEach(post => {
+        post.addEventListener('click', () => {
+          const title = post.querySelector('.blog-title').textContent;
+          const date = post.querySelector('.blog-date').textContent;
+          const content = post.getAttribute('data-fulltext') || post.querySelector('.blog-content').innerHTML;
+          const annotation = post.querySelector('.annotation') ? '<div class="annotation">' + post.querySelector('.annotation').textContent + '</div>' : '';
+          openReadingModal(title, date, content + annotation);
+        });
+      });
+    });
+
+    // Filters
+    function filterJournal(category) {
+      const posts = document.querySelectorAll('.blog-post');
+      posts.forEach(post => {
+        const postCategory = post.getAttribute('data-category');
+        if(category === 'all' || postCategory === category) {
+          post.style.display = 'block';
+        } else {
+          post.style.display = 'none';
+        }
+      });
+      addLog("Filtered journal by category: " + category);
+    }
+
+function isMobile() {
+  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+}
+
+function openPDF() {
+  const pdfLink = "Babel.pdf";
+
+  if (isMobile()) {
+    window.open(pdfLink, '_blank');
+  } else {
+    document.getElementById('pdf-frame').src = pdfLink;
+    document.getElementById('pdf-viewer').style.display = 'block';
+  }
+}
+
+function closePDF() {
+  document.getElementById('pdf-viewer').style.display = 'none';
+}
+
+
+document.addEventListener('DOMContentLoaded', updateDiscoveryLog);
+</script>
+</body>
+</html>
