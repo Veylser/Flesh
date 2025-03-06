@@ -30,6 +30,18 @@ html, body { height: 100%;
       animation: backgroundFlicker 30s infinite;
       
     }
+    html, body {
+  overflow-x: hidden; 
+}
+
+#sidebar {
+  right: -220px; 
+}
+
+#sidebar.visible {
+  right: 0; 
+}
+
     @keyframes backgroundFlicker {
       0%, 100% { filter: brightness(1); }
       50% { filter: brightness(0.9); }
