@@ -533,13 +533,7 @@
 
   <!-- Access -->
 
-  <a href="#" id="document-button" onclick="openPDF()">Access Document</a>
-<div id="pdf-viewer">
-  <div id="pdf-container">
-    <span id="close-pdf" onclick="closePDF()">×</span>
-    <iframe id="pdf-frame" src="Babel.pdf" width="100%" height="100%"></iframe>
-  </div>
-</div>
+  <a href="Babel.pdf" id="document-button" target="_blank">Access Document</a>
 
 
   <!-- Footer -->
@@ -633,27 +627,10 @@
       addLog("Filtered journal by category: " + category);
     }
 
-function isMobile() {
-  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-}
-
-function openPDF() {
-  const pdfLink = "Babel.pdf";
-
-  if (isMobile()) {
-    window.open(pdfLink, '_blank');
-  } else {
-    document.getElementById('pdf-frame').src = pdfLink;
-    document.getElementById('pdf-viewer').style.display = 'block';
-  }
-}
-
-function closePDF() {
-  document.getElementById('pdf-viewer').style.display = 'none';
-}
 
 
-document.addEventListener('DOMContentLoaded', updateDiscoveryLog);
-</script>
+
+    document.addEventListener('DOMContentLoaded', updateDiscoveryLog);
+  </script>
 </body>
 </html>
