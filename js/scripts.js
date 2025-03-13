@@ -292,35 +292,55 @@
 
    // ACCESS
     function showAccessPage() {
-        if (stageSpeechAudio && !stageSpeechAudio.paused) {
-            stageSpeechAudio.pause();
-            stageSpeechAudio.currentTime = 0;
-        }
-        if (document.cookie.indexOf("accessGranted=true") !== -1) {
-            window.open("Babel.pdf", "_blank");
-            return;
-        }
-        explorePage.style.display = 'none';
-        locationPage.style.display = 'none';
-        blogPage.style.display = 'none';
-        persistentUI.style.display = 'none';
-        floatingTrigger.style.display = 'none';
-        const accessPage = document.getElementById('access-page');
-        accessPage.style.display = 'block';
-        document.getElementById('access-stage1').style.opacity = 0;
-        document.getElementById('access-stage2').style.opacity = 0;
-        document.getElementById('access-stage3').style.opacity = 0;
-        document.getElementById('access-stage4').style.opacity = 0;
-        setTimeout(() => { document.getElementById('access-stage1').style.opacity = 1; }, 500);
-        setTimeout(() => {
-            document.getElementById('access-stage1').style.opacity = 0;
-            setTimeout(() => { document.getElementById('access-stage2').style.opacity = 1; }, 2000);
-        }, 3500);
-        setTimeout(() => {
-            document.getElementById('access-stage2').style.opacity = 0;
-            setTimeout(() => { document.getElementById('access-stage3').style.opacity = 1; }, 2000);
-        }, 7500);
+    if (stageSpeechAudio && !stageSpeechAudio.paused) {
+        stageSpeechAudio.pause();
+        stageSpeechAudio.currentTime = 0;
     }
+    if (localStorage.getItem("accessGranted") === "true") {
+        window.open("Babel.pdf", "_blank");
+        return; 
+    }
+
+    explorePage.style.display = 'none';
+    locationPage.style.display = 'none';
+    blogPage.style.display = 'none';
+    persistentUI.style.display = 'none';
+    floatingTrigger.style.display = 'none';
+
+    const accessPage = document.getElementById('access-page');
+    accessPage.style.display = 'block';
+
+    document.getElementById('access-stage1').style.opacity = 0;
+    document.getElementById('access-stage2').style.opacity = 0;
+    document.getElementById('access-stage3').style.opacity = 0;
+    document.getElementById('access-stage4').style.opacity = 0;
+
+    setTimeout(() => { document.getElementById('access-stage1').style.opacity = 1; }, 500);
+    setTimeout(() => {
+        document.getElementById('access-stage1').style.opacity = 0;
+        setTimeout(() => { document.getElementById('access-stage2').style.opacity = 1; }, 2000);
+    }, 3500);
+    setTimeout(() => {
+        document.getElementById('access-stage2').style.opacity = 0;
+        setTimeout(() => { document.getElementById('access-stage3').style.opacity = 1; }, 2000);
+    }, 7500);
+}
+document.getElementById('submit-agreement').addEventListener('click', function() {
+    document.getElementById('access-stage3').style.opacity = 0;
+    setTimeout(() => {
+        document.getElementById('access-stage4').style.opacity = 1;
+        localStorage.setItem("accessGranted", "true");
+        window.open("Babel.pdf", "_blank");
+
+        setTimeout(() => {
+            document.getElementById('access-page').style.display = 'none';
+            explorePage.style.display = 'block';
+            exploreBg.style.display = 'block';
+            persistentUI.style.display = 'block';
+            updateFloatingTriggerVisibility();
+        }, 4000);
+    }, 2000);
+});
 
     function checkAgreement() {
         const c1 = document.getElementById('check1').checked;
