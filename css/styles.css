@@ -490,7 +490,7 @@ content: "";
 position: fixed;
 top: 0; left: 0;
 width: 100vw; height: 100vh;
-background: url('assets/blog.jpg') center/cover no-repeat;
+background: url('../assets/blog.jpg') center/cover no-repeat;
 filter: blur(4px) brightness(20%);
 z-index: -1;
 }
