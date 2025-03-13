@@ -1,28 +1,28 @@
-    // ALL SCRIPTS
+// ALL SCRIPTS
 
-    var stageSpeechAudio;
-    var altarAudio;
-    let mainAudio = document.getElementById('background-audio');
-    let savedMainAudioTime = 0;
-    const introPage = document.getElementById('intro-page');
-    const introHero = document.getElementById('intro-hero');
-    const welcomePage = document.getElementById('welcome-page');
-    const explorePage = document.getElementById('explore-page');
-    const exploreBg = document.getElementById('explore-bg');
-    const locationPage = document.getElementById('location-page');
-    const blogPage = document.getElementById('blog-page');
-    const persistentUI = document.getElementById('persistent-ui');
-    const floatingTrigger = document.getElementById('floating-trigger');
-    function updateFloatingTriggerVisibility() {
+var stageSpeechAudio;
+var altarAudio;
+let mainAudio = document.getElementById('background-audio');
+let savedMainAudioTime = 0;
+const introPage = document.getElementById('intro-page');
+const introHero = document.getElementById('intro-hero');
+const welcomePage = document.getElementById('welcome-page');
+const explorePage = document.getElementById('explore-page');
+const exploreBg = document.getElementById('explore-bg');
+const locationPage = document.getElementById('location-page');
+const blogPage = document.getElementById('blog-page');
+const persistentUI = document.getElementById('persistent-ui');
+const floatingTrigger = document.getElementById('floating-trigger');
+function updateFloatingTriggerVisibility() {
         if ((explorePage.style.display === 'block' || locationPage.style.display === 'block') && window.innerWidth <= 988) {
             floatingTrigger.style.display = 'flex';
         } else {
             floatingTrigger.style.display = 'none';
         }
     }
-    window.addEventListener('resize', updateFloatingTriggerVisibility);
+window.addEventListener('resize', updateFloatingTriggerVisibility);
 
-    window.addEventListener('load', () => {
+window.addEventListener('load', () => {
         updateFloatingTriggerVisibility();
         setTimeout(() => { introHero.style.opacity = 1; }, 50);
         setTimeout(() => {
@@ -53,7 +53,7 @@
         }, 8000);
     });
 
-    function showLocation(locationId) {
+function showLocation(locationId) {
         explorePage.style.display = 'none';
         exploreBg.style.display = 'none';
         locationPage.style.display = 'block';
@@ -83,10 +83,10 @@
             startQuestionnaire();
         }
     }
-    function switchLocation(locationId) {
+function switchLocation(locationId) {
         showLocation(locationId);
     }
-    function goBackToExplore() {
+function goBackToExplore() {
         locationPage.style.display = 'none';
         explorePage.style.display = 'block';
         exploreBg.style.display = 'block';
@@ -120,8 +120,8 @@
     }
 
 
-    // BLOG
-    function showBlogPage() {
+// BLOG
+function showBlogPage() {
         if (stageSpeechAudio && !stageSpeechAudio.paused) {
             stageSpeechAudio.pause();
             stageSpeechAudio.currentTime = 0;
@@ -139,8 +139,8 @@
         }, 50);
     }
 
-    // BLOG TO EXP
-    function goBackFromBlog() {
+// BLOG TO EXP
+function goBackFromBlog() {
         blogPage.style.transition = 'opacity 0.5s ease';
         blogPage.style.opacity = 0;
         setTimeout(() => {
@@ -152,8 +152,8 @@
         }, 500);
     }
 
-    // AUDIOS
-    document.addEventListener("DOMContentLoaded", function () {
+// AUDIOS
+document.addEventListener("DOMContentLoaded", function () {
         let audio = document.getElementById("background-audio");
         let playAudio = () => {
             audio.play().catch(error => { console.log("Autoplay prevented. Waiting for user interaction."); });
@@ -162,8 +162,8 @@
         document.addEventListener("click", playAudio);
     });
 
-    // BUBBLES EXPLORE
-    document.addEventListener("DOMContentLoaded", () => {
+// BUBBLES EXPLORE
+document.addEventListener("DOMContentLoaded", () => {
         const bubbleContainer = document.querySelector(".floating-bubbles");
         function createBubble() {
             const bubble = document.createElement("div");
@@ -180,15 +180,15 @@
         setInterval(createBubble, 500);
     });
 
-    function playClickAudio() {
+function playClickAudio() {
         const clickAudio = document.getElementById('click-audio');
         clickAudio.volume = 1.0;
         clickAudio.currentTime = 0;
         clickAudio.play();
     }
 
-    // FLOATING MENU
-    function toggleFloatingMenu() {
+// FLOATING MENU
+function toggleFloatingMenu() {
         const floatingMenu = document.getElementById("floating-menu");
         const blurOverlay = document.getElementById("blur-overlay");
         if (floatingMenu.classList.contains("hidden")) {
@@ -200,17 +200,17 @@
         }
     }
 
-    // BLOG MODALS
-    function openBlogModal(num) {
+// BLOG MODALS
+function openBlogModal(num) {
         playClickAudio();
         document.getElementById(`blog-modal-${num}`).classList.add('active');
     }
-    function closeBlogModal(num) {
+function closeBlogModal(num) {
         document.getElementById(`blog-modal-${num}`).classList.remove('active');
     }
 
     // BUBBLES BLOG
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
         const blogPage = document.getElementById("blog-page");
         const blogBubbleContainer = document.createElement("div");
         blogBubbleContainer.classList.add("blog-floating-bubbles");
@@ -233,7 +233,7 @@
     });
 
     // BUBBLES SHRINE
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
         const shrineBubbles = document.querySelector("#location-shrine .shrine-bubbles");
         if(shrineBubbles) {
             function createShrineBubble() {
@@ -253,7 +253,7 @@
     });
 
     // MOUSE
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
         const canvas = document.getElementById("mouseCanvas");
         const ctx = canvas.getContext("2d");
         let particles = [];
@@ -272,7 +272,7 @@
                 });
             }
         });
-        function drawParticles() {
+function drawParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach((p, i) => {
                 ctx.beginPath();
@@ -291,7 +291,7 @@
     });
 
    // ACCESS
-    function showAccessPage() {
+function showAccessPage() {
     if (stageSpeechAudio && !stageSpeechAudio.paused) {
         stageSpeechAudio.pause();
         stageSpeechAudio.currentTime = 0;
@@ -342,7 +342,7 @@ document.getElementById('submit-agreement').addEventListener('click', function()
     }, 2000);
 });
 
-    function checkAgreement() {
+function checkAgreement() {
         const c1 = document.getElementById('check1').checked;
         const c2 = document.getElementById('check2').checked;
         const c3 = document.getElementById('check3').checked;
@@ -368,7 +368,7 @@ document.getElementById('submit-agreement').addEventListener('click', function()
     });
 
     // SHRINE CINEMATIC
-    function startShrineCinematic() {
+function startShrineCinematic() {
         const cinematic = document.querySelector('#location-shrine .shrine-cinematic');
         const shrineDisplay = document.querySelector('#location-shrine .shrine-display');
         shrineDisplay.style.opacity = 0;
@@ -386,7 +386,7 @@ document.getElementById('submit-agreement').addEventListener('click', function()
         }, 3000);
     }
 
-    function triggerOffering(offeringName) {
+function triggerOffering(offeringName) {
         const texts = {
             stone: "The shrine fell when the first prayers went unanswered, perhaps it was never whole.",
             parchment: "A record was promised to be always kept, but the fall was never accounted.",
@@ -406,7 +406,7 @@ document.getElementById('submit-agreement').addEventListener('click', function()
     }
 
     // STAGE CINEMATIC
-    function startStageCinematic() {
+function startStageCinematic() {
         const overlayText = document.getElementById('stage-cinematic-overlay');
         const tvContainer = document.getElementById('tv-container');
         const tvSubtitle = document.getElementById('tv-subtitle');
@@ -456,7 +456,7 @@ document.getElementById('submit-agreement').addEventListener('click', function()
         }, 4000);
     }
 
-    function replaySpeech() {
+function replaySpeech() {
         if (stageSpeechAudio && stageSpeechAudio.paused) {
             stageSpeechAudio.currentTime = 0;
             stageSpeechAudio.play();
@@ -473,7 +473,7 @@ document.getElementById('submit-agreement').addEventListener('click', function()
         }
     }
     //  ALTAR CINEMATIC
-    function startAltarCinematic() {
+function startAltarCinematic() {
         if (altarAudio && !altarAudio.paused) return;
         altarAudio = new Audio('assets/water.mp3');
         altarAudio.loop = false;
@@ -482,7 +482,7 @@ document.getElementById('submit-agreement').addEventListener('click', function()
     }
 
     let questions = [
-        "When did you exist?",
+"When did you exist?",
 "Are you alive?",
 "Will you die soon?"
     ];
@@ -605,8 +605,30 @@ document.getElementById('submit-agreement').addEventListener('click', function()
             setTimeout(unlockSidebar, 500);
         }, 3000);
     }
+// CONTEXT MENU 
+const contextMenu = document.getElementById("custom-context-menu");
+document.addEventListener("contextmenu", function(event) {
+    event.preventDefault(); 
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    let posX = event.clientX;
+    let posY = event.clientY;
+    const menuWidth = 100; 
+    const menuHeight = 50; 
 
-    const torchOverlay = document.getElementById('torch-overlay');
+    if (posX + menuWidth > windowWidth) posX -= menuWidth;
+    if (posY + menuHeight > windowHeight) posY -= menuHeight;
+    contextMenu.style.top = `${posY}px`;
+    contextMenu.style.left = `${posX}px`;
+    contextMenu.classList.add("show");
+});
+
+document.addEventListener("click", function() {
+    contextMenu.classList.remove("show");
+});
+
+// TORCHLIGHT
+const torchOverlay = document.getElementById('torch-overlay');
     document.addEventListener('mousemove', (e) => {
         torchOverlay.style.setProperty('--mouseX', `${e.clientX}px`);
         torchOverlay.style.setProperty('--mouseY', `${e.clientY}px`);
