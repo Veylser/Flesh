@@ -797,7 +797,7 @@ text-align: center;
 opacity: 0;
 transition: opacity 2s ease;
 }
-#access-stage1 { font-size: 4rem; letter-spacing: 0.2em; }
+#access-stage1 { font-size: 2.5rem; letter-spacing: 0.2em; }
 #access-stage2 {
 font-size: 1.2rem;
 line-height: 1.5;
