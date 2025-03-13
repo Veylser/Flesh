@@ -606,26 +606,18 @@ function startAltarCinematic() {
         }, 3000);
     }
 // CONTEXT MENU 
-const contextMenu = document.getElementById("context-menu");
+const whyText = document.getElementById("why-text");
+
 document.addEventListener("contextmenu", function(event) {
-    event.preventDefault(); 
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    let posX = event.clientX;
-    let posY = event.clientY;
-    const menuWidth = 100; 
-    const menuHeight = 50; 
-
-    if (posX + menuWidth > windowWidth) posX -= menuWidth;
-    if (posY + menuHeight > windowHeight) posY -= menuHeight;
-    contextMenu.style.top = `${posY}px`;
-    contextMenu.style.left = `${posX}px`;
-    contextMenu.classList.add("show");
+    event.preventDefault();
+    whyText.style.top = `${event.clientY}px`;
+    whyText.style.left = `${event.clientX}px`;
+    whyText.style.opacity = "1";
+    setTimeout(() => {
+        whyText.style.opacity = "0";
+    }, 500);
 });
 
-document.addEventListener("click", function() {
-    contextMenu.classList.remove("show");
-});
 
 // TORCHLIGHT
 const torchOverlay = document.getElementById('torch-overlay');
