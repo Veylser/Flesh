@@ -606,7 +606,7 @@ function startAltarCinematic() {
         }, 3000);
     }
 // CONTEXT MENU 
-const contextMenu = document.getElementById("custom-context-menu");
+const contextMenu = document.getElementById("context-menu");
 document.addEventListener("contextmenu", function(event) {
     event.preventDefault(); 
     const windowWidth = window.innerWidth;
