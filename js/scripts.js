@@ -368,10 +368,10 @@
 
     function triggerOffering(offeringName) {
         const texts = {
-            stone: "The foundation cracked when the first prayers went unanswered.",
-            parchment: "A record was kept, but the ink dissolved before it could be read.",
-            mirror: "Once, faces reflected in its glow—now, only the void remains.",
-            coin: "A final offering was made, but the gods had already turned away."
+            stone: "The shrine fell when the first prayers went unanswered, perhaps it was never whole.",
+            parchment: "A record was promised to be always kept, but the fall was never accounted.",
+            mirror: "Once, those who worshiped were reflected, but now it is all alone.",
+            coin: "A final offering was offered to the gods, but they had already turned away."
         };
         const overlay = document.getElementById('offering-cinematic');
         const video = document.getElementById('offering-audio');
